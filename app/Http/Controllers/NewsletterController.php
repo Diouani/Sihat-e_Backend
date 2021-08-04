@@ -41,12 +41,24 @@ class NewsletterController extends Controller
             'email' => 'required|email|unique:newsletters',
         ]);
 
-        newsletter::create([
-            'email' => $request->email,
 
-        ]);
+            newsletter::create([
+                'email' => $request->email,
 
-        return response()->json(['message' => "Email enregistré"], 200);
+            ]);
+
+            return response()->json([
+
+
+                'message' => "Look for a welcome email soon and check out more newsletters you may like:",
+
+        ], 200);
+
+
+
+
+
+
 
 
 }
