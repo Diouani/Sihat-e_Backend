@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PassportController;
+use App\Models\newsletter;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::post('login', [PassportController::class, 'login']);
 
 Route::post('register', [PassportController::class, 'register']);
 
-
+Route::post('newsletter' , [newsletter::class , 'store']);
 
 Route::middleware('auth:api')->group(function () {
 
