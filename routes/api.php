@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PassportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,18 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::post('login', 'PassportController@login');
+Route::post('login', [PassportController::class, 'login']);
 
-
-Route::post('register', 'PassportController@register');
+Route::post('register', [PassportController::class, 'register']);
 
 
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::get('user', 'PassportController@details');
+    Route::get('user', [PassportController::class, 'details']);
 
-    Route::resource('products', 'ProductController');
+
 
 });
 
