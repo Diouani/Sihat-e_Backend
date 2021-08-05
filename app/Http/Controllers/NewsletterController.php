@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\newsletter;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class NewsletterController extends Controller
 {
@@ -37,13 +38,13 @@ class NewsletterController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:newsletters',
         ]);
 
-        $emailExist = newsletter::find($request->email);
+        
 
-        if($emailExist){
+        if($validator->fails()){
            return response()->json([
            'status'=>409,
         'message'=>'Email already exist'
