@@ -29,6 +29,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('user', [PassportController::class, 'details']);
 
+    Route::resource('patient', PatientController::class);
 
 
 });

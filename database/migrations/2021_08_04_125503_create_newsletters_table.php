@@ -17,6 +17,7 @@ class CreateNewslettersTable extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
