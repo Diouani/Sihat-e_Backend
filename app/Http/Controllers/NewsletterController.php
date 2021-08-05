@@ -41,7 +41,14 @@ class NewsletterController extends Controller
             'email' => 'required|email|unique:newsletters',
         ]);
 
+        $emailExist = newsletter::find($request->email);
 
+        if($emailExist){
+           return response()->json([
+           'status'=>409,
+        'message'=>'Email already exist'
+           ]);
+         }
             newsletter::create([
                 'email' => $request->email,
 
@@ -49,19 +56,15 @@ class NewsletterController extends Controller
 
             return response()->json([
 
-
+                'status'=>200,
                 'message' => "Look for a welcome email soon and check out more newsletters you may like:",
 
-        ], 200);
-
-
-
-
-
+        ]);
 
 
 
 }
+
 
     /**
      * Display the specified resource.
