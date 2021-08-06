@@ -55,7 +55,9 @@ class HeightController extends Controller
      */
     public function show(Height $height)
     {
-        //
+        $height = Height::all();
+
+        return  response()->json(['height' => $height,],200);
     }
 
     /**
@@ -64,9 +66,15 @@ class HeightController extends Controller
      * @param  \App\Models\Height  $height
      * @return \Illuminate\Http\Response
      */
-    public function edit(Height $height)
+    public function edit($id)
     {
-        //
+        $height = Height::find($id);
+if($height){
+    return response()->json(['height' => $height,],200);
+}else{
+    return response()->json(['error' => "record not found",],404);
+}
+
     }
 
     /**
@@ -76,9 +84,16 @@ class HeightController extends Controller
      * @param  \App\Models\Height  $height
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Height $height)
+    public function update(Request $request, $id)
     {
-        //
+
+        $height = Height::find($id);
+
+        $height->save();
+
+
+return response()->json(['sucess' => "record updated"], 200);
+
     }
 
     /**
@@ -87,8 +102,10 @@ class HeightController extends Controller
      * @param  \App\Models\Height  $height
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Height $height)
+    public function destroy($id)
     {
-        //
+        $height = Height::find($id);
+        $height->delete();
+        return response()->json(['sucess' => "record deleted"], 200);
     }
 }
