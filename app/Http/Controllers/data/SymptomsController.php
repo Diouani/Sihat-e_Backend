@@ -44,7 +44,7 @@ class SymptomsController extends Controller
     {
         //
         $validator = Validator::make($request->all(), [
-            'name' => 'required|unique:symptoms',
+            'symptom_name' => 'required|unique:symptoms',
         ]);
 if($validator->fails()){
     return response()->json([
@@ -53,7 +53,7 @@ if($validator->fails()){
 
 }else{
     Symptoms::create([
-        'name'=> $request->name
+        'symptom_name'=> $request->name
     ]);
 
     return response()->json(['message' => 'Succes'],200);

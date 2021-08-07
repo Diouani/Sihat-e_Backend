@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Medications;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class MedicationsController extends Controller
 {
@@ -23,9 +24,14 @@ class MedicationsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($medication_name)
     {
-        //
+        $result = Medications::where('medication_name', 'like', '%'.$medication_name.'%')->get();
+        if(count($result)){
+            return response()->json(['result',$result],200);
+        } else {
+            return response()->json(['Result', 'No records found'],404);
+        }
     }
 
     /**
@@ -36,7 +42,21 @@ class MedicationsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'medication_name' => 'required|unique:medications',
+        ]);
+if($validator->fails()){
+    return response()->json([
+     'message'=>'medication already exist'
+        ],409);
+
+}else{
+    Medications::create([
+        'medication_name'=> $request->name
+    ]);
+
+    return response()->json(['message' => 'Succes'],200);
+}
     }
 
     /**
@@ -79,8 +99,10 @@ class MedicationsController extends Controller
      * @param  \App\Models\Medications  $medications
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Medications $medications)
+    public function destroy($id)
     {
-        //
+        $medication = Medications::find($id);
+        $medication->delete();
+        return response()->json(['sucess' => "record deleted"], 200);
     }
 }
