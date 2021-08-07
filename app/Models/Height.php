@@ -10,7 +10,7 @@ class Height extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'cm',
+        'user_id'
     ];
 }

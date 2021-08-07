@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class PassportController extends Controller
 {
@@ -15,19 +17,30 @@ class PassportController extends Controller
          */
         public function register(Request $request)
         {
-            $this->validate($request, [
+
+            $validator = Validator::make($request->all(), [
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6',
             ]);
 
-            $user = User::create([
-                'email' => $request->email,
-                'password' => bcrypt($request->password)
-            ]);
 
-            $token = $user->createToken('S-register')->accessToken;
+            if($validator->fails()){
+               return response()->json([
+               'status'=>409,
+            'message'=>'Email already exist'
+               ]);
+             }else{
+                $user = User::create([
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password)
+                ]);
 
-            return response()->json(['token' => $token], 200);
+                $token = $user->createToken('S-register')->accessToken;
+
+                return response()->json(['token' => $token], 200);
+             }
+
+
         }
 
         /**

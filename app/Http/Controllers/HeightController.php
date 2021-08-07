@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Height;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HeightController extends Controller
 {
@@ -37,7 +38,7 @@ class HeightController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'user_id' => 'required',
+
             'cm' => 'required'
         ]);
 
