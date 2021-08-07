@@ -53,9 +53,9 @@ class HeightController extends Controller
      * @param  \App\Models\Height  $height
      * @return \Illuminate\Http\Response
      */
-    public function show(Height $height)
+    public function show($request)
     {
-        $height = Height::all();
+        $height = Height::all()->where('user_id',$request->user_id);
 
         return  response()->json(['height' => $height,],200);
     }
@@ -87,9 +87,11 @@ if($height){
     public function update(Request $request, $id)
     {
 
-        $height = Height::find($id);
+        $height = Height::findOrFail($id);
 
-        $height->save();
+        $height->update([
+            'cm' => $request->cm
+        ]);
 
 
 return response()->json(['sucess' => "record updated"], 200);

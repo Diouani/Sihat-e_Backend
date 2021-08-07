@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class HeightSeeder extends Seeder
@@ -13,6 +15,6 @@ class HeightSeeder extends Seeder
      */
     public function run()
     {
-        //
+        User::factory(20)->create();
     }
 }
