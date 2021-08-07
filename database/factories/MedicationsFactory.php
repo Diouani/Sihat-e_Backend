@@ -1,18 +1,18 @@
 <?php
 
-namespace Database\Factories\data;
+namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\data\Symptoms;
+use App\Models\Medications;
 
-class SymptomsFactory extends Factory
+class MedicationsFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Symptoms::class;
+    protected $model = Medications::class;
 
     /**
      * Define the model's default state.

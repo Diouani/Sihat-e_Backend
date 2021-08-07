@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Symptoms;
+use App\Models\Medications;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class SymptomsController extends Controller
+class MedicationsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class SymptomsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Symptoms  $symptoms
+     * @param  \App\Models\Medications  $medications
      * @return \Illuminate\Http\Response
      */
-    public function show(Symptoms $symptoms)
+    public function show(Medications $medications)
     {
         //
     }
@@ -53,10 +53,10 @@ class SymptomsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Symptoms  $symptoms
+     * @param  \App\Models\Medications  $medications
      * @return \Illuminate\Http\Response
      */
-    public function edit(Symptoms $symptoms)
+    public function edit(Medications $medications)
     {
         //
     }
@@ -65,10 +65,10 @@ class SymptomsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Symptoms  $symptoms
+     * @param  \App\Models\Medications  $medications
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Symptoms $symptoms)
+    public function update(Request $request, Medications $medications)
     {
         //
     }
@@ -76,10 +76,10 @@ class SymptomsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Symptoms  $symptoms
+     * @param  \App\Models\Medications  $medications
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Symptoms $symptoms)
+    public function destroy(Medications $medications)
     {
         //
     }

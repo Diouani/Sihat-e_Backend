@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Height;
 use Illuminate\Http\Request;
+use App\Models\data\Symptoms;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
-class HeightController extends Controller
+class SymptomsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,9 +24,14 @@ class HeightController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($symptom_name)
     {
-        //
+        $result = Symptoms::where('symptom_name', 'like', '%'.$symptom_name.'%')->get();
+        if(count($result)){
+            return response()->json(['result',$result],200);
+        } else {
+            return response()->json(['Result', 'No records found'],404);
+        }
     }
 
     /**
@@ -37,84 +42,69 @@ class HeightController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-
-            'cm' => 'required'
+        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|unique:symptoms',
         ]);
+if($validator->fails()){
+    return response()->json([
+     'message'=>'Symptom already exist'
+        ],409);
 
-       $create =  Height::create([
-            'user_id' => $request->user_id,
-            'cm' => $request->cm
-        ]);
+}else{
+    Symptoms::create([
+        'name'=> $request->name
+    ]);
 
-        if($create){
-            return 1;
-        }else {
-            return 0;
-        }
+    return response()->json(['message' => 'Succes'],200);
+}
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Height  $height
+     * @param  \App\Models\data\Symptoms  $symptoms
      * @return \Illuminate\Http\Response
      */
-    public function show($request)
+    public function show(Symptoms $symptoms)
     {
-        $height = Height::all()->where('user_id',$request->user_id);
-
-        return  response()->json(['height' => $height,],200);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Height  $height
+     * @param  \App\Models\data\Symptoms  $symptoms
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Symptoms $symptoms)
     {
-        $height = Height::find($id);
-if($height){
-    return response()->json(['height' => $height,],200);
-}else{
-    return response()->json(['error' => "record not found",],404);
-}
-
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Height  $height
+     * @param  \App\Models\data\Symptoms  $symptoms
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Symptoms $symptoms)
     {
-
-        $height = Height::findOrFail($id);
-
-        $height->update([
-            'cm' => $request->cm
-        ]);
-
-
-return response()->json(['sucess' => "record updated"], 200);
-
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Height  $height
+     * @param  \App\Models\data\Symptoms  $symptoms
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $height = Height::find($id);
-        $height->delete();
+        $symptom = Symptoms::find($id);
+        $symptom->delete();
         return response()->json(['sucess' => "record deleted"], 200);
     }
 }
