@@ -21,7 +21,7 @@ use App\Http\Controllers\NewsletterController;
 
 
 
-Route::post('login', [PassportController::class, 'login']);
+Route::post('login', [PassportController::class, 'login'])->name('login');
 
 Route::post('register', [PassportController::class, 'register']);
 
@@ -30,8 +30,8 @@ Route::resource('height', HeightController::class);
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::get('user', [PassportController::class, 'details']);
-
+    Route::get('details', [PassportController::class, 'details']);
+    Route::get('logout', [PassportController::class, 'logout']);
     Route::resource('patient', PatientController::class);
 
 
