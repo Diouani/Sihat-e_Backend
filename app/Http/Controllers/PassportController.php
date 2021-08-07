@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -58,7 +59,7 @@ class PassportController extends Controller
 
             if (auth()->attempt($credentials)) {
                 $token = auth()->user()->createToken('S-login')->accessToken;
-                return response()->json(['token' => $token], 200);
+                return response()->json(['token' => $token , 'user_id' => auth()->user()->id ], 200);
             } else {
                 return response()->json(['error' => 'UnAuthorised','status' => '401']);
             }
