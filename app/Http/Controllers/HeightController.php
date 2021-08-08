@@ -60,7 +60,7 @@ class HeightController extends Controller
      * @param  \App\Models\Height  $height
      * @return \Illuminate\Http\Response
      */
-    public function show($request)
+    public function show(Request $request)
     {
         $height = Height::all()->where('user_id',$request->user_id);
 
