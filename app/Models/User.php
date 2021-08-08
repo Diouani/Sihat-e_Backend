@@ -23,6 +23,15 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    public function test_models_can_be_instantiated()
+    {
+        $users = User::factory()->count(15)->make();
+
+        // Use model in tests...
+    }
+
+
+
 
     /**
      * The attributes that should be hidden for arrays.
