@@ -2,9 +2,8 @@
 
 namespace App\Exceptions;
 
-use Throwable;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -27,18 +26,6 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-
-
-    protected function unauthenticated($request, AuthenticationException $exception)
-    {
-        if($request->expectsJson() || $request->header('Authorization')){
-            $response = ['status' => 'error','message' => 'Incorrect headers supplied'];
-            return response()->json($response);
-        }
-        $response = ['status' => 'error','message' => 'please login'];
-            return response()->json($response);
-        // return redirect()->guest('login');
-    }
 
     /**
      * Register the exception handling callbacks for the application.
