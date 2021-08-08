@@ -16,7 +16,8 @@ class PatientController extends Controller
      */
     public function index()
     {
-        //
+
+
     }
 
     /**
@@ -85,9 +86,14 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function edit(Patient $patient)
+    public function edit()
     {
-        //
+        $patient =  Patient::all()->where('user_id',auth()->user()->id);
+        if($patient){
+            return  response()->json(['data' => $patient],200);
+        }else {
+            return  response()->json(['error' => "Patient Not Found"],404);
+        }
     }
 
     /**
@@ -97,9 +103,11 @@ class PatientController extends Controller
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Patient $patient)
+    public function update(Request $request)
     {
-        //
+
+        $user_id = auth()->user()->id;
+        Patient::where('user_id',$user_id)->update($request->all());
     }
 
     /**
@@ -110,6 +118,6 @@ class PatientController extends Controller
      */
     public function destroy(Patient $patient)
     {
-        //
+
     }
 }
