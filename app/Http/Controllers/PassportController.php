@@ -27,9 +27,8 @@ class PassportController extends Controller
 
             if($validator->fails()){
                return response()->json([
-               'status'=>409,
-            'message'=>'Email already exist'
-               ]);
+            $validator->errors()
+               ],409);
              }else{
                 $user = User::create([
                     'email' => $request->email,
@@ -74,7 +73,7 @@ class PassportController extends Controller
         {
             return response()->json(['user' => auth()->user()], 200);
         }
-        
+
         public function logout(Request $request)
 {
     $request->user()->token()->revoke();
