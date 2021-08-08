@@ -58,9 +58,9 @@ class PassportController extends Controller
 
             if (auth()->attempt($credentials)) {
                 $token = auth()->user()->createToken('S-login')->accessToken;
-                return response()->json(['token' => $token , 'user_id' => auth()->user()->id ], 200);
+                return response()->json(['token' => $token ], 200);
             } else {
-                return response()->json(['error' => 'UnAuthorised','status' => '401']);
+                return response()->json(['error' => 'UnAuthorised'],401);
             }
         }
 

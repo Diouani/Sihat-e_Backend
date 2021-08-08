@@ -37,25 +37,26 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'user_id' => 'required|unique:patients',
-        ]);
+        // $this->validate($request, [
+        //     'user_id' => 'required|unique:patients',
+        // ]);
 
         // User::find()
+        $user_id = auth()->user()->id;
+        Patient::create([
+           'user_id' => $user_id,
+           'first_name'=> $request->first_name,
+           'last_name'=> $request->last_name,
+           'birth_day'=> $request->birth_day,
+           'bio_sex'=> $request->bio_sex,
+           'phone'=> $request->phone,
+           'adress'=> $request->adress,
+           'city'=> $request->citys
+           ]
+        //
 
-        Patient::create(
 
-            $request->all()
-        //     [
-        //     'user_id'=> $request->user_id,
-        //     'first_name'=> $request->first_name,
-        //     'last_name'=> $request->last_name,
-        //     'birth_day'=> $request->birth_day,
-        //     'bio_sex'=> $request->bio_sex,
-        //     'phone'=> $request->phone,
-        //     'adress'=> $request->adress,
-        //     'city'=> $request->citys
-        // ]
+        //
 
         );
 
