@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class PassportController extends Controller
 {
@@ -15,19 +18,29 @@ class PassportController extends Controller
          */
         public function register(Request $request)
         {
-            $this->validate($request, [
+
+            $validator = Validator::make($request->all(), [
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:6',
             ]);
 
-            $user = User::create([
-                'email' => $request->email,
-                'password' => bcrypt($request->password)
-            ]);
 
-            $token = $user->createToken('S-register')->accessToken;
+            if($validator->fails()){
+               return response()->json([
+            $validator->errors()
+               ],409);
+             }else{
+                $user = User::create([
+                    'email' => $request->email,
+                    'password' => bcrypt($request->password)
+                ]);
 
-            return response()->json(['token' => $token], 200);
+                $token = $user->createToken('S-register')->accessToken;
+
+                return response()->json(['token' => $token], 200);
+             }
+
+
         }
 
         /**
@@ -45,7 +58,7 @@ class PassportController extends Controller
 
             if (auth()->attempt($credentials)) {
                 $token = auth()->user()->createToken('S-login')->accessToken;
-                return response()->json(['token' => $token], 200);
+                return response()->json(['token' => $token , 'user_id' => auth()->user()->id ], 200);
             } else {
                 return response()->json(['error' => 'UnAuthorised','status' => '401']);
             }
@@ -60,6 +73,14 @@ class PassportController extends Controller
         {
             return response()->json(['user' => auth()->user()], 200);
         }
+
+        public function logout(Request $request)
+{
+    $request->user()->token()->revoke();
+    return response()->json([
+        'message' => 'Successfully logged out'
+    ]);
+}
     }
 
 

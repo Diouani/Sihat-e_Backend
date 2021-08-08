@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\NewsletterController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HeightController;
+use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PassportController;
-use App\Models\newsletter;
+use App\Http\Controllers\NewsletterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,17 +21,19 @@ use App\Models\newsletter;
 
 
 
-Route::post('login', [PassportController::class, 'login']);
+Route::post('login', [PassportController::class, 'login'])->name('login');
 
 Route::post('register', [PassportController::class, 'register']);
 
 Route::post('newsletter' , [NewsletterController::class ,'store']);
+Route::resource('height', HeightController::class);
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::get('user', [PassportController::class, 'details']);
+    Route::get('details', [PassportController::class, 'details']);
+    Route::get('logout', [PassportController::class, 'logout']);
+    Route::resource('patient', PatientController::class);
 
-    // Route::resource('patient', PatientController::class);
 
 
 });
