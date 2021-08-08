@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\lifestyles;
+use App\Models\LifeStyle_patients;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LifestylesController extends Controller
+class LifeStylePatientsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -42,10 +42,10 @@ class LifestylesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\lifestyles  $lifestyles
+     * @param  \App\Models\LifeStyle_patients  $lifeStyle_patients
      * @return \Illuminate\Http\Response
      */
-    public function show(lifestyles $lifestyles)
+    public function show(LifeStyle_patients $lifeStyle_patients)
     {
         //
     }
@@ -53,10 +53,10 @@ class LifestylesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\lifestyles  $lifestyles
+     * @param  \App\Models\LifeStyle_patients  $lifeStyle_patients
      * @return \Illuminate\Http\Response
      */
-    public function edit(lifestyles $lifestyles)
+    public function edit(LifeStyle_patients $lifeStyle_patients)
     {
         //
     }
@@ -65,10 +65,10 @@ class LifestylesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\lifestyles  $lifestyles
+     * @param  \App\Models\LifeStyle_patients  $lifeStyle_patients
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, lifestyles $lifestyles)
+    public function update(Request $request, LifeStyle_patients $lifeStyle_patients)
     {
         //
     }
@@ -76,10 +76,10 @@ class LifestylesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\lifestyles  $lifestyles
+     * @param  \App\Models\LifeStyle_patients  $lifeStyle_patients
      * @return \Illuminate\Http\Response
      */
-    public function destroy(lifestyles $lifestyles)
+    public function destroy(LifeStyle_patients $lifeStyle_patients)
     {
         //
     }

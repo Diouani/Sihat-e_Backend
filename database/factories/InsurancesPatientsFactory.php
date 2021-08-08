@@ -3,16 +3,16 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use App\Models\lifestyles;
+use App\Models\Insurances_patients;
 
-class LifestylesFactory extends Factory
+class InsurancesPatientsFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = lifestyles::class;
+    protected $model = Insurances_patients::class;
 
     /**
      * Define the model's default state.

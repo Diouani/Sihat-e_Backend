@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLifestylesTable extends Migration
+class CreateVaccinationsPatientsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateLifestylesTable extends Migration
      */
     public function up()
     {
-        Schema::create('lifestyles', function (Blueprint $table) {
+        Schema::create('vaccinations_patients', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string('dietary_restriction');  //foreign
-            $table->string('Alcohol'); //foreign
-            $table->string('Tabacco'); //foreign
-            $table->string('recreational_drug');  //foreign
+            $table->foreignId('vaccination_id')->constrained('vacinations')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('Note')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -32,6 +30,6 @@ class CreateLifestylesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lifestyles');
+        Schema::dropIfExists('vaccinations_patients');
     }
 }
