@@ -32,7 +32,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('details', [PassportController::class, 'details']);
     Route::get('logout', [PassportController::class, 'logout']);
-    Route::resource('patient', PatientController::class);
+    // Route::resource('patient', PatientController::class);
     Route::get('patient/fetch',[PatientController::class , 'edit']);
 
 

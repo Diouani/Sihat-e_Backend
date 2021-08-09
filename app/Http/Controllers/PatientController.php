@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Patient;
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Patient;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class PatientController extends Controller
 {
@@ -38,28 +39,43 @@ class PatientController extends Controller
      */
     public function store(Request $request)
     {
-        // $this->validate($request, [
-        //     'user_id' => 'required|unique:patients',
-        // ]);
-
-        // User::find()
-        $user_id = auth()->user()->id;
-        Patient::create([
-           'user_id' => $user_id,
-           'first_name'=> $request->first_name,
-           'last_name'=> $request->last_name,
-           'birth_day'=> $request->birth_day,
-           'bio_sex'=> $request->bio_sex,
-           'phone'=> $request->phone,
-           'adress'=> $request->adress,
-           'city'=> $request->citys
-           ]
-        //
 
 
-        //
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|unique:patients',
 
-        );
+        ]);
+
+
+
+
+            if($validator->fails()){
+                return response()->json([
+             $validator->errors(), "status"=> 409
+                ]);
+
+    }else{
+     // User::find()
+     $user_id = auth()->user()->id;
+     Patient::create([
+        'user_id' => $user_id,
+        'first_name'=> $request->first_name,
+        'last_name'=> $request->last_name,
+        'birth_day'=> $request->birth_day,
+        'bio_sex'=> $request->bio_sex,
+        'phone'=> $request->phone,
+        'adress'=> $request->adress,
+        'city'=> $request->citys
+        ]
+     //
+
+
+     //
+
+     );
+    }
+
+
 
 
 
