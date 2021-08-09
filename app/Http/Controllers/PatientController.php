@@ -42,7 +42,7 @@ class PatientController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|unique:patients',
+            'user_id' => 'unique:patients',
 
         ]);
 
@@ -104,7 +104,9 @@ class PatientController extends Controller
      */
     public function edit()
     {
-        $patient =  Patient::findOrFail(auth()->user()->id);
+
+
+        $patient =  Patient::where('user_id',auth()->user()->id)->first();
         if($patient){
             return  response()->json(['data' => $patient],200);
         }else {
