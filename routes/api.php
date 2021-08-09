@@ -33,8 +33,11 @@ Route::middleware('auth:api')->group(function () {
     Route::get('details', [PassportController::class, 'details']);
     Route::get('logout', [PassportController::class, 'logout']);
     // Route::resource('patient', PatientController::class);
-    Route::get('patient/fetch',[PatientController::class , 'edit']);
 
+    // Patient Routes
+    Route::get('patient/fetch',[PatientController::class , 'edit']);
+    Route::post('patient',[PatientController::class , 'store']);
+    Route::put('patient',[PatientController::class , 'update']);
 
 
 });
