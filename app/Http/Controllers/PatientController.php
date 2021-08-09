@@ -42,7 +42,7 @@ class PatientController extends Controller
 
 
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|unique:patients',
+            'user_id' => 'unique:patients',
 
         ]);
 
