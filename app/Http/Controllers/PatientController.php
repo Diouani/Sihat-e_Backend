@@ -104,7 +104,7 @@ class PatientController extends Controller
      */
     public function edit()
     {
-        $patient =  Patient::all()->where('user_id',auth()->user()->id);
+        $patient =  Patient::findOrfail(auth()->user()->id);
         if($patient){
             return  response()->json(['data' => $patient],200);
         }else {
