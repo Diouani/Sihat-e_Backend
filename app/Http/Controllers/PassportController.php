@@ -27,8 +27,8 @@ class PassportController extends Controller
 
             if($validator->fails()){
                return response()->json([
-            $validator->errors()
-               ],409);
+            $validator->errors(), "status"=> 409
+               ]);
              }else{
                 $user = User::create([
                     'email' => $request->email,
@@ -37,7 +37,7 @@ class PassportController extends Controller
 
                 $token = $user->createToken('S-register')->accessToken;
 
-                return response()->json(['token' => $token], 200);
+                return response()->json(['token' => $token, "status"=> 200]);
              }
 
 
@@ -58,9 +58,9 @@ class PassportController extends Controller
 
             if (auth()->attempt($credentials)) {
                 $token = auth()->user()->createToken('S-login')->accessToken;
-                return response()->json(['token' => $token ], 200);
+                return response()->json(['token' => $token, "status"=> 200 ]);
             } else {
-                return response()->json(['error' => 'UnAuthorised'],401);
+                return response()->json(['error' => 'UnAuthorised', "status"=> 401]);
             }
         }
 
