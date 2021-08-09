@@ -36,8 +36,8 @@ Route::middleware('auth:api')->group(function () {
 
     // Patient Routes
     Route::get('patient/fetch',[PatientController::class , 'edit']);
-    Route::post('patient',[PatientController::class , 'store']);
-    Route::put('patient',[PatientController::class , 'update']);
+    Route::post('patient/create',[PatientController::class , 'store']);
+    Route::put('patient/update',[PatientController::class , 'update']);
 
 
 });
