@@ -40,9 +40,9 @@ class PatientController extends Controller
     public function store(Request $request)
     {
 
-
-        $validator = Validator::make($request->all(), [
-            'user_id' => 'unique:patients',
+        $user_id = [ "user_id" => auth()->user()->id];
+        $validator = Validator::make($user_id, [
+            "user_id" => 'unique:patients',
 
         ]);
 
@@ -56,7 +56,7 @@ class PatientController extends Controller
 
     }else{
      // User::find()
-     $user_id = auth()->user()->id;
+
      Patient::create([
         'user_id' => $user_id,
         'first_name'=> $request->first_name,
@@ -67,11 +67,6 @@ class PatientController extends Controller
         'adress'=> $request->adress,
         'city'=> $request->citys
         ]
-     //
-
-
-     //
-
      );
      return  response()->json(['data' => "created" ],200);
     }
