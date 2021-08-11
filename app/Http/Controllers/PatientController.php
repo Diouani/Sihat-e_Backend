@@ -51,7 +51,7 @@ class PatientController extends Controller
 
             if($validator->fails()){
                 return response()->json([
-             $validator->errors(), "status"=> 409
+             $validator->errors(),409
                 ]);
 
     }else{
@@ -73,6 +73,7 @@ class PatientController extends Controller
      //
 
      );
+     return  response()->json(['data' => "created" ],200);
     }
 
 
