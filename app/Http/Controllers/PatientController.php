@@ -57,6 +57,7 @@ class PatientController extends Controller
     }else{
      // User::find()
      $user_id = auth()->user()->id;
+
      Patient::create([
         'user_id' => $user_id,
         'first_name'=> $request->first_name,
