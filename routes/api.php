@@ -26,7 +26,7 @@ Route::post('login', [PassportController::class, 'login'])->name('login');
 Route::post('register', [PassportController::class, 'register']);
 
 Route::post('newsletter' , [NewsletterController::class ,'store']);
-Route::resource('height', HeightController::class);
+
 
 Route::middleware('auth:api')->group(function () {
 
@@ -39,6 +39,9 @@ Route::middleware('auth:api')->group(function () {
     Route::post('patient/create',[PatientController::class , 'store']);
     Route::put('patient/update',[PatientController::class , 'update']);
 
+
+// height controller
+    Route::get('height',[HeightController::class , 'show']);
 
 });
 

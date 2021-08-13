@@ -41,16 +41,16 @@ class HeightController extends Controller
 
             'cm' => 'required'
         ]);
-
+        $user_id = auth()->user()->id;
        $create =  Height::create([
-            'user_id' => $request->user_id,
+            'user_id' => $user_id,
             'cm' => $request->cm
         ]);
 
         if($create){
-            return 1;
+            return  response()->json(['data' => $create],200);
         }else {
-            return 0;
+            return  response()->json(['error' => "something went wrong "],404);
         }
     }
 
@@ -60,11 +60,23 @@ class HeightController extends Controller
      * @param  \App\Models\Height  $height
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show()
     {
-        $height = Height::all()->where('user_id',$request->user_id);
+        $user_id = auth()->user()->id;
+        $height = Height::select("*")
 
-        return  response()->json(['height' => $height,],200);
+        ->where("user_id", $user_id)
+
+        ->orderBy('id', 'desc')
+
+        ->get();
+
+if($height){
+    return  response()->json(['data' => $height,],200);
+}else {
+    return "Hello";
+}
+
     }
 
     /**
