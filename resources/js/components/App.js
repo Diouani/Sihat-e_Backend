@@ -5,7 +5,6 @@ import Pusher from "pusher-js";
 import Peer from "simple-peer";
 
 const APP_KEY = "81eb55255e8fcd908510";
-
 export default class App extends Component {
     constructor() {
         super();
