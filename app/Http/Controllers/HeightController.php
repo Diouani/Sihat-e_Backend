@@ -37,10 +37,15 @@ class HeightController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-
+        $validator = Validator::make($request->all(), [
             'cm' => 'required'
+
         ]);
+
+
+        if($validator->fails()){
+           return response()->json([
+        $validator->errors()],500);
         $user_id = auth()->user()->id;
        $create =  Height::create([
             'user_id' => $user_id,
