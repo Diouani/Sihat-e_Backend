@@ -42,6 +42,9 @@ Route::middleware('auth:api')->group(function () {
 
 // height controller
     Route::get('height',[HeightController::class , 'show']);
+    Route::post('height',[HeightController::class , 'create']);
+    Route::get('height/{$id}',[HeightController::class , 'edit']);
+    Route::put('height/{$id}',[HeightController::class , 'update']);
 
 });
 
