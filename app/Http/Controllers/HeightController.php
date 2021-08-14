@@ -73,7 +73,16 @@ class HeightController extends Controller
     public function show()
     {
         $user_id = auth()->user()->id;
-        $height = Height::select("*")
+
+
+
+        $last_height = Height::where("user_id", $user_id)->latest()->first();
+
+
+
+        $historique = Height::select("*")
+
+        ->where('id', '!=', $last_height->id)
 
         ->where("user_id", $user_id)
 
@@ -81,8 +90,11 @@ class HeightController extends Controller
 
         ->get();
 
-if($height){
-    return  response()->json(['data' => $height,],200);
+if($last_height){
+    if($historique){
+        return  response()->json(['last_height' => $last_height,'historique' => $historique],200);
+    }
+    return  response()->json(['last_height' => $last_height,'historique' => "Aucun historique"],200);   // normalement
 }else {
     return "Hello";
 }
