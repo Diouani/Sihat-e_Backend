@@ -1,6 +1,7 @@
 <?php
 
 use TCG\Voyager\Facades\Voyager;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +26,8 @@ Route::group(['prefix' => 'admin'], function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/pusher/auth', [App\Http\Controllers\HomeController::class, 'authenticate']);
+

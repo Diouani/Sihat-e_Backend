@@ -2,35 +2,38 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import MediaHandler from "../MediaHandler";
 import Pusher from "pusher-js";
-import peer from "simple-peer";
+import Peer from "simple-peer";
+
+const APP_KEY = "81eb55255e8fcd908510";
 
 export default class App extends Component {
     constructor() {
         super();
+
         this.state = {
             hasMedia: false,
             otherUserId: null,
         };
+
         this.user = window.user;
-        this.peers = {};
         this.user.stream = null;
+        this.peers = {};
 
         this.mediaHandler = new MediaHandler();
         this.setupPusher();
+
         this.callTo = this.callTo.bind(this);
         this.setupPusher = this.setupPusher.bind(this);
         this.startPeer = this.startPeer.bind(this);
     }
-    componentDidMount() {
-        console.log(
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-        );
+
+    componentWillMount() {
         this.mediaHandler.getPermissions().then((stream) => {
             this.setState({ hasMedia: true });
             this.user.stream = stream;
 
             try {
-                this.myVideo.srcObject = stream; //Not all browser support it
+                this.myVideo.srcObject = stream;
             } catch (e) {
                 this.myVideo.src = URL.createObjectURL(stream);
             }
@@ -42,26 +45,32 @@ export default class App extends Component {
     setupPusher() {
         this.pusher = new Pusher(APP_KEY, {
             authEndpoint: "/pusher/auth",
-            cluster: "ap2",
+            cluster: "eu",
             auth: {
                 params: this.user.id,
-                header: {
+                headers: {
                     "X-CSRF-Token": window.csrfToken,
                 },
             },
         });
+
         this.channel = this.pusher.subscribe("presence-video-channel");
+
         this.channel.bind(`client-signal-${this.user.id}`, (signal) => {
             let peer = this.peers[signal.userId];
-            //si peer est undefined c'est qu'on a un appel en cours
+
+            // if peer is not already exists, we got an incoming call
             if (peer === undefined) {
                 this.setState({ otherUserId: signal.userId });
                 peer = this.startPeer(signal.userId, false);
             }
+
+            peer.signal(signal.data);
         });
     }
+
     startPeer(userId, initiator = true) {
-        const peer = new peer({
+        const peer = new Peer({
             initiator,
             stream: this.user.stream,
             trickle: false,
@@ -74,22 +83,27 @@ export default class App extends Component {
                 data: data,
             });
         });
+
         peer.on("stream", (stream) => {
             try {
-                this.userVideo.srcObject = stream; //Not all browser support it
+                this.userVideo.srcObject = stream;
             } catch (e) {
                 this.userVideo.src = URL.createObjectURL(stream);
             }
 
             this.userVideo.play();
         });
+
         peer.on("close", () => {
             let peer = this.peers[userId];
             if (peer !== undefined) {
                 peer.destroy();
             }
+
             this.peers[userId] = undefined;
         });
+
+        return peer;
     }
 
     callTo(userId) {
@@ -99,11 +113,17 @@ export default class App extends Component {
     render() {
         return (
             <div className="App">
-                {[1, 2, 3, 4].map((userId) => (
-                    <button onClick={() => this.callTo(userId)}>
-                        Call {userId}
-                    </button>
-                ))}
+                {[1, 2, 3, 4].map((userId) => {
+                    return this.user.id !== userId ? (
+                        <button
+                            key={userId}
+                            onClick={() => this.callTo(userId)}
+                        >
+                            Call {userId}
+                        </button>
+                    ) : null;
+                })}
+
                 <div className="video-container">
                     <video
                         className="my-video"
@@ -111,7 +131,6 @@ export default class App extends Component {
                             this.myVideo = ref;
                         }}
                     ></video>
-
                     <video
                         className="user-video"
                         ref={(ref) => {
