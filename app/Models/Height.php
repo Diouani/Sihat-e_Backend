@@ -11,6 +11,7 @@ class Height extends Model
 
     protected $fillable = [
         'cm',
-        'user_id'
+        'user_id',
+        'date'
     ];
 }

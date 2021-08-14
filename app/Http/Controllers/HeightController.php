@@ -6,6 +6,7 @@ use App\Models\Height;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class HeightController extends Controller
 {
@@ -46,10 +47,14 @@ class HeightController extends Controller
         if($validator->fails()){
            return response()->json([
         $validator->errors()],500);
+
+           }
+
         $user_id = auth()->user()->id;
        $create =  Height::create([
             'user_id' => $user_id,
-            'cm' => $request->cm
+            'cm' => $request->cm,
+            'date' => $request->date
         ]);
 
         if($create){

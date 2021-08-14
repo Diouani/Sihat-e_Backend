@@ -42,7 +42,7 @@ Route::middleware('auth:api')->group(function () {
 
 // height controller
     Route::get('height/fetch',[HeightController::class , 'show']);
-    Route::post('height/create',[HeightController::class , 'create']);
+    Route::post('height/create',[HeightController::class , 'store']);
     Route::get('height/{$id}',[HeightController::class , 'edit']);
     Route::put('height/update/{$id}',[HeightController::class , 'update']);
 
