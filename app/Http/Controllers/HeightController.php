@@ -79,7 +79,7 @@ class HeightController extends Controller
         $last_height = Height::where("user_id", $user_id)->latest()->first();
 
 
-
+        if($last_height){
         $historique = Height::select("*")
 
         ->where('id', '!=', $last_height->id)
@@ -89,6 +89,7 @@ class HeightController extends Controller
         ->orderBy('id', 'desc')
 
         ->get();
+        }
 
 if($last_height){
     if($historique){

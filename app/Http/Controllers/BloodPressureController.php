@@ -79,7 +79,7 @@ class BloodPressureController extends Controller
         $last_blood_pressure = blood_pressure::where("user_id", $user_id)->latest()->first();
 
 
-
+        if($last_blood_pressure){
         $historique = blood_pressure::select("*")
 
         ->where('id', '!=', $last_blood_pressure->id)
@@ -89,6 +89,7 @@ class BloodPressureController extends Controller
         ->orderBy('id', 'desc')
 
         ->get();
+        }
 
 if($last_blood_pressure){
     if($historique){

@@ -79,7 +79,7 @@ class BMIController extends Controller
         $last_BMI = BMI::where("user_id", $user_id)->latest()->first();
 
 
-
+        if($last_BMI){
         $historique = BMI::select("*")
 
         ->where('id', '!=', $last_BMI->id)
@@ -89,6 +89,7 @@ class BMIController extends Controller
         ->orderBy('id', 'desc')
 
         ->get();
+        }
 
 if($last_BMI){
     if($historique){

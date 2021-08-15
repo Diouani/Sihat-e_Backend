@@ -79,16 +79,18 @@ class WeightController extends Controller
         $last_weight = Weight::where("user_id", $user_id)->latest()->first();
 
 
+if($last_weight){
+    $historique = Weight::select("*")
 
-        $historique = Weight::select("*")
+    ->where('id', '!=', $last_weight->id)
 
-        ->where('id', '!=', $last_weight->id)
+    ->where("user_id", $user_id)
 
-        ->where("user_id", $user_id)
+    ->orderBy('id', 'desc')
 
-        ->orderBy('id', 'desc')
+    ->get();
+}
 
-        ->get();
 
 if($last_weight){
     if($historique){
