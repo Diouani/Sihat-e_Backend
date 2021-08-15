@@ -3,10 +3,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BMIController;
 use App\Http\Controllers\HeightController;
+use App\Http\Controllers\WeightController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\PassportController;
 use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\TemperatureController;
+use App\Http\Controllers\BloodPressureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +66,28 @@ Route::middleware('auth:api')->group(function () {
     Route::get('BMI/{id}',[BMIController::class , 'edit']);
     Route::put('BMI/update/{id}',[BMIController::class , 'update']);
     Route::delete('BMI/delete/{id}',[BMIController::class , 'destroy']);
+
+
+
+
+//Temperature
+    Route::get('temperature/fetch',[TemperatureController::class , 'show']);
+    Route::post('temperature/create',[TemperatureController::class , 'store']);
+    Route::get('temperature/{id}',[TemperatureController::class , 'edit']);
+    Route::put('temperature/update/{id}',[TemperatureController::class , 'update']);
+    Route::delete('temperature/delete/{id}',[TemperatureController::class , 'destroy']);
+
+
+    //Blood pressure
+
+
+    Route::get('blood_presure/fetch',[BloodPressureController::class , 'show']);
+    Route::post('blood_presure/create',[BloodPressureController::class , 'store']);
+    Route::get('blood_presure/{id}',[BloodPressureController::class , 'edit']);
+    Route::put('blood_presure/update/{id}',[BloodPressureController::class , 'update']);
+    Route::delete('blood_presure/delete/{id}',[BloodPressureController::class , 'destroy']);
+
+
 
 });
 
