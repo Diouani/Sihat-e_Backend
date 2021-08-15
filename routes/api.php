@@ -47,6 +47,15 @@ Route::middleware('auth:api')->group(function () {
     Route::put('height/update/{id}',[HeightController::class , 'update']);
     Route::delete('height/delete/{id}',[HeightController::class , 'destroy']);
 
+
+
+    // weight controller
+    Route::get('weight/fetch',[WeightController::class , 'show']);
+    Route::post('weight/create',[WeightController::class , 'store']);
+    Route::get('weight/{id}',[WeightController::class , 'edit']);
+    Route::put('weight/update/{id}',[WeightController::class , 'update']);
+    Route::delete('weight/delete/{id}',[WeightController::class , 'destroy']);
+
 });
 
 

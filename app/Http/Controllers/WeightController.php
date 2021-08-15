@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Weight;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class WeightController extends Controller
 {
@@ -36,74 +38,117 @@ class WeightController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-
+        $validator = Validator::make($request->all(), [
             'kg' => 'required'
+
         ]);
 
-        Weight::create([
-            'user_id' => $request->user_id,
-            'kg' => $request->cm
+
+        if($validator->fails()){
+           return response()->json([
+        $validator->errors()],500);
+
+           }
+
+        $user_id = auth()->user()->id;
+       $create =  Weight::create([
+            'user_id' => $user_id,
+            'kg' => $request->kg,
+            'date' => $request->date
         ]);
+
+        if($create){
+            return  response()->json(['data' => $create],200);
+        }else {
+            return  response()->json(['error' => "something went wrong "],404);
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Weight  $weight
+     * @param  \App\Models\Weight  $Weight
      * @return \Illuminate\Http\Response
      */
-    public function show(request $request ,$id)
+    public function show()
     {
-        $weight = weight::all()->where('user_id',$request->user_id);
+        $user_id = auth()->user()->id;
 
-        return  response()->json(['weight' => $weight,],200);
+
+
+        $last_weight = Weight::where("user_id", $user_id)->latest()->first();
+
+
+
+        $historique = Weight::select("*")
+
+        ->where('id', '!=', $last_weight->id)
+
+        ->where("user_id", $user_id)
+
+        ->orderBy('id', 'desc')
+
+        ->get();
+
+if($last_weight){
+    if($historique){
+        return  response()->json(['last_Weight' => $last_weight,'historique' => $historique],200);
+    }
+    return  response()->json(['last_Weight' => $last_weight,'historique' => "Aucun historique"],200);   // normalement
+}else {
+    return "Hello";
+}
+
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Weight  $weight
+     * @param  \App\Models\Weight  $Weight
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $weight = Weight::find($id);
-        if($weight){
-            return response()->json(['weight' => $weight,],200);
-        }else{
-            return response()->json(['error' => "record not found",],404);
-        }
+        $Weight = Weight::find($id);
+if($Weight){
+    return response()->json(['Weight' => $Weight,],200);
+}else{
+    return response()->json(['error' => "record not found",],404);
+}
+
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Weight  $weight
+     * @param  \App\Models\Weight  $Weight
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $weight = Weight::findOrFail($id);
 
-        $weight->update([
-            'kg' => $request->cm
+        $Weight = Weight::findOrFail($id);
+
+        $Weight->update([
+            'kg' => $request->kg
         ]);
 
-        return response()->json(['sucess' => "record updated"], 200);
+
+return response()->json(['sucess' => "record updated"], 200);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Weight  $weight
+     * @param  \App\Models\Weight  $Weight
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $weight = Weight::find($id);
-        $weight->delete();
+        $Weight = Weight::find($id);
+        $Weight->delete();
         return response()->json(['sucess' => "record deleted"], 200);
     }
 }
