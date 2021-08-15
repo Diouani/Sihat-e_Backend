@@ -94,9 +94,9 @@ if($last_weight){
 
 if($last_weight){
     if($historique){
-        return  response()->json(['last_Weight' => $last_weight,'historique' => $historique],200);
+        return  response()->json(['last_weight' => $last_weight,'historique' => $historique],200);
     }
-    return  response()->json(['last_Weight' => $last_weight,'historique' => "Aucun historique"],200);   // normalement
+    return  response()->json(['last_weight' => $last_weight,'historique' => "Aucun historique"],200);   // normalement
 }else {
     return "no record found";
 }
@@ -113,7 +113,7 @@ if($last_weight){
     {
         $Weight = Weight::find($id);
 if($Weight){
-    return response()->json(['Weight' => $Weight,],200);
+    return response()->json(['weight' => $Weight,],200);
 }else{
     return response()->json(['error' => "record not found",],404);
 }
