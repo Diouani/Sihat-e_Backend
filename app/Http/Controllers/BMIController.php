@@ -97,7 +97,7 @@ if($last_BMI){
     }
     return  response()->json(['last_BMI' => $last_BMI,'historique' => "Aucun historique"],200);   // normalement
 }else {
-    return "Hello";
+    return "no record found";
 }
 
     }

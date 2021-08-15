@@ -97,7 +97,7 @@ if($last_blood_pressure){
     }
     return  response()->json(['last_blood_pressure' => $last_blood_pressure,'historique' => "Aucun historique"],200);   // normalement
 }else {
-    return "Hello";
+    return "no record found";
 }
 
     }

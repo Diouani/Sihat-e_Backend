@@ -98,7 +98,7 @@ if($last_weight){
     }
     return  response()->json(['last_Weight' => $last_weight,'historique' => "Aucun historique"],200);   // normalement
 }else {
-    return "Hello";
+    return "no record found";
 }
 
     }

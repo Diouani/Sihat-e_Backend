@@ -97,7 +97,7 @@ if($last_height){
     }
     return  response()->json(['last_height' => $last_height,'historique' => "Aucun historique"],200);   // normalement
 }else {
-    return "Hello";
+    return "no record found";
 }
 
     }
