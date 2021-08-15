@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Weight extends Model
+class BMI extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'kg',
+        'bmi',
         'user_id',
         'date'
-
     ];
 }

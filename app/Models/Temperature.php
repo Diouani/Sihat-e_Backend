@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Weight extends Model
+class Temperature extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'kg',
-        'user_id',
-        'date'
 
+
+    protected $fillable = [
+        'temperature',
+        'date'
     ];
 }

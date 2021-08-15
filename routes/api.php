@@ -56,6 +56,13 @@ Route::middleware('auth:api')->group(function () {
     Route::put('weight/update/{id}',[WeightController::class , 'update']);
     Route::delete('weight/delete/{id}',[WeightController::class , 'destroy']);
 
+//BMI
+    Route::get('BMI/fetch',[BMIController::class , 'show']);
+    Route::post('BMI/create',[BMIController::class , 'store']);
+    Route::get('BMI/{id}',[BMIController::class , 'edit']);
+    Route::put('BMI/update/{id}',[BMIController::class , 'update']);
+    Route::delete('BMI/delete/{id}',[BMIController::class , 'destroy']);
+
 });
 
 
