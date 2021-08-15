@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Glucose extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'mg',
+        'user_id',
+        'date'
+    ];
 }

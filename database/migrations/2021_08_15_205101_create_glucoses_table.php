@@ -15,7 +15,11 @@ class CreateGlucosesTable extends Migration
     {
         Schema::create('glucoses', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->string('mg');
+            $table->date('date');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

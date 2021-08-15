@@ -89,6 +89,16 @@ Route::middleware('auth:api')->group(function () {
 
 
 
+//glucose
+    Route::get('glucose/fetch',[GlucoseController::class , 'show']);
+    Route::post('glucose/create',[GlucoseController::class , 'store']);
+    Route::get('glucose/{id}',[GlucoseController::class , 'edit']);
+    Route::put('glucose/update/{id}',[GlucoseController::class , 'update']);
+    Route::delete('glucose/delete/{id}',[GlucoseController::class , 'destroy']);
+
+
+
+
 });
 
 
