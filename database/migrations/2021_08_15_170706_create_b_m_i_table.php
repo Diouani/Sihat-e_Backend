@@ -13,7 +13,7 @@ class CreateBMITable extends Migration
      */
     public function up()
     {
-        Schema::create('b_m_i', function (Blueprint $table) {
+        Schema::create('bmi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('BMI');
@@ -30,6 +30,6 @@ class CreateBMITable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('b_m_i');
+        Schema::dropIfExists('bmi');
     }
 }
