@@ -101,9 +101,10 @@ class PatientController extends Controller
      */
     public function edit()
     {
+        $patient = Patient::join('users', 'users.id', '=', 'patients.user_id')->where('user_id',auth()->user()->id)->get(['patients.*', 'users.email']);
 
+        
 
-        $patient =  Patient::where('user_id',auth()->user()->id)->first();
         if($patient){
             return  response()->json(['data' => $patient],200);
         }else {

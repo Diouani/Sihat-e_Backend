@@ -11,6 +11,7 @@ use App\Http\Controllers\PassportController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\TemperatureController;
 use App\Http\Controllers\BloodPressureController;
+use App\Http\Controllers\GlucoseController;
 
 /*
 |--------------------------------------------------------------------------

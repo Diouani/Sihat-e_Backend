@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\data\Symptoms;
+use App\Models\Symptoms;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
