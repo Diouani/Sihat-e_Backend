@@ -79,7 +79,7 @@ class TemperatureController extends Controller
         $last_temperature = Temperature::where("user_id", $user_id)->latest()->first();
 
 
-
+        if($last_temperature){
         $historique = Temperature::select("*")
 
         ->where('id', '!=', $last_temperature->id)
@@ -89,7 +89,7 @@ class TemperatureController extends Controller
         ->orderBy('id', 'desc')
 
         ->get();
-
+        }
 if($last_temperature){
     if($historique){
         return  response()->json(['last_Temperature' => $last_temperature,'historique' => $historique],200);
