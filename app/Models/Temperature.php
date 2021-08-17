@@ -12,6 +12,7 @@ class Temperature extends Model
 
     protected $fillable = [
         'temperature',
-        'date'
+        'date',
+        'user_id'
     ];
 }
