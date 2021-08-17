@@ -103,7 +103,7 @@ class PatientController extends Controller
     {
         $patient = Patient::join('users', 'users.id', '=', 'patients.user_id')->where('user_id',auth()->user()->id)->get(['patients.*', 'users.email']);
 
-        
+
 
         if($patient){
             return  response()->json(['data' => $patient],200);
@@ -123,7 +123,16 @@ class PatientController extends Controller
     {
 
         $user_id = auth()->user()->id;
-        Patient::where('user_id',$user_id)->update($request->all());
+        Patient::where('user_id',$user_id)->update(
+            ['user_id' => $user_id,
+            'first_name'=> $request->first_name,
+            'last_name'=> $request->last_name,
+            'birth_day'=> $request->birth_day,
+            'bio_sex'=> $request->bio_sex,
+            'phone'=> $request->phone,
+            'adress'=> $request->adress,
+            'city'=> $request->citys ]
+        );
     }
 
     /**
